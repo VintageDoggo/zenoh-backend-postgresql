@@ -1,0 +1,34 @@
+[package]
+authors = ["Jorge Corichi"]
+edition = { workspace = true }
+name = "zenoh-backend-postgresql"
+publish = false
+rust-version = { workspace = true }
+version = { workspace = true }
+
+[features]
+default = ["dynamic_plugin", "zenoh/default"]
+dynamic_plugin = []
+
+[lib]
+name = "zenoh_backend_pg"
+# This crate type will make `cargo` output a dynamic library instead of a rust static library
+crate-type = ["cdylib"]
+
+[dependencies]
+async-trait = { workspace = true }
+git-version = { workspace = true }
+lazy_static = "1.4.0"
+serde_json = { workspace = true }
+tokio = { workspace = true }
+zenoh = { workspace = true }
+zenoh-plugin-trait = { workspace = true, default-features = false }
+zenoh-util = { workspace = true }
+zenoh_backend_traits = { workspace = true, default-features = false }
+
+[dependencies.sqlx]
+version = "0.8.6"
+features = ["runtime-tokio", "postgres"]
+
+[package.metadata.cargo-machete]
+ignored = ["git-version"]
